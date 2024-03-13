@@ -8,6 +8,8 @@ CREATE TABLE genre (
         CHECK (genre_name ~ '^[A-Z][A-Za-z ]+$')
 );
 
+\COPY genre FROM './data/genre.csv' WITH CSV HEADER;
+
 DROP TABLE IF EXISTS gaming_engine CASCADE;
 
 CREATE TABLE gaming_engine (
@@ -17,6 +19,8 @@ CREATE TABLE gaming_engine (
         NOT NULL
         CHECK (engine_name ~ '^[A-Z][A-Za-z0-9 ]+$')
 );
+
+\COPY gaming_engine FROM './data/gaming_engine.csv' WITH CSV HEADER;
 
 DROP TABLE IF EXISTS game CASCADE;
 
@@ -36,6 +40,8 @@ CREATE TABLE game (
     FOREIGN KEY (engine_id) REFERENCES gaming_engine(engine_id)
 );
 
+\COPY game FROM './data/game.csv' WITH CSV HEADER;
+
 DROP TABLE IF EXISTS genre_game;
 
 CREATE TABLE genre_game (
@@ -45,6 +51,8 @@ CREATE TABLE genre_game (
     FOREIGN KEY (game_id) REFERENCES game (game_id),
     FOREIGN KEY (genre_id) REFERENCES genre (genre_id)
 );
+
+\COPY genre_game FROM './data/genre_game.csv' WITH CSV HEADER;
 
 DROP TABLE IF EXISTS action_figure;
 
@@ -62,6 +70,8 @@ CREATE TABLE action_figure (
         CHECK (price > 10 AND price < 100.01)
 );
 
+\COPY action_figure FROM './data/action_figure.csv' WITH CSV HEADER;
+
 DROP TABLE IF EXISTS employee CASCADE;
 
 CREATE TABLE employee (
@@ -76,6 +86,8 @@ CREATE TABLE employee (
         NOT NULL
         CHECK (salary > 31987.19 AND salary < 60000.01)
 );
+
+\COPY employee FROM './data/employee.csv' WITH CSV HEADER;
 
 DROP TABLE IF EXISTS poster;
 
@@ -93,6 +105,8 @@ CREATE TABLE poster (
         CHECK(price > 6 AND price < 20)
 );
 
+\COPY poster FROM './data/poster.csv' WITH CSV HEADER;
+
 DROP TABLE IF EXISTS social_security;
 
 CREATE TABLE social_security (
@@ -105,6 +119,8 @@ CREATE TABLE social_security (
     FOREIGN KEY (employee_id) REFERENCES employee(employee_id)
 );
 
+\COPY social_security FROM './data/social_security.csv' WITH CSV HEADER;
+
 DROP TABLE IF EXISTS shifts;
 
 CREATE TABLE shifts (
@@ -115,29 +131,4 @@ CREATE TABLE shifts (
     FOREIGN KEY (employee_id) REFERENCES employee(employee_id)
 );
 
--- \COPY game
--- FROM '/home/reginafera13/codeplatoon/game-store-III/store/data/game.csv' WITH CSV HEADER;
-
--- \COPY action_figure
--- FROM '/home/reginafera13/codeplatoon/game-store-III/store/data/action_figure.csv' WITH CSV HEADER;
-
--- \COPY poster
--- FROM '/home/reginafera13/codeplatoon/game-store-III/store/data/poster.csv' WITH CSV HEADER;
-
--- \COPY employee
--- FROM '/home/reginafera13/codeplatoon/game-store-III/store/data/employee.csv' WITH CSV HEADER;
-
--- \COPY gaming_engine
--- FROM '/home/reginafera13/codeplatoon/game-store-III/store/data/gaming_engine.csv' WITH CSV HEADER;
-
--- \COPY genre_game
--- FROM '/home/reginafera13/codeplatoon/game-store-III/store/data/genre_game.csv' WITH CSV HEADER;
-
--- \COPY genre
--- FROM '/home/reginafera13/codeplatoon/game-store-III/store/data/genre.csv' WITH CSV HEADER;
-
--- \COPY shifts
--- FROM '/home/reginafera13/codeplatoon/game-store-III/store/data/shifts.csv' WITH CSV HEADER;
-
--- \COPY social_security
--- FROM '/home/reginafera13/codeplatoon/game-store-III/store/data/social_security.csv' WITH CSV HEADER;
+\COPY shifts FROM './data/shifts.csv' WITH CSV HEADER;
